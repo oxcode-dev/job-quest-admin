@@ -61,6 +61,7 @@
 import { ref } from 'vue'
 import { useFirebaseDB } from '../../composables/useFirebaseDB'
 import {isEmpty} from '../../helpers/index'
+import EmptyState from '../EmptyState.vue';
 
 const props = defineProps({
     applications: Array,
