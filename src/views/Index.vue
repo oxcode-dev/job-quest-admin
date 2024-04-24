@@ -43,7 +43,7 @@ import { onBeforeMount, computed, ref } from 'vue'
 import { useFirebaseDB } from '../composables/useFirebaseDB'
 import { o_O } from '../helpers'
 import VueFeather from 'vue-feather'
-import ApplicationsTable from '../components/tables/ApplicationsTable.vue'
+// import ApplicationsTable from '../components/tables/ApplicationsTable.vue'
 
 const applications = ref([])
 const jobs = ref([])

@@ -18,7 +18,7 @@
                                     Location
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                    Job Type
+                                    Industry
                                 </th>
                                 <th scope="col" class="text-sm font-medium text-gray-900 p-4 text-left">
                                     State
@@ -44,7 +44,7 @@
                                 </td>
                                 <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                     <router-link class="w-full h-full" :to="`/jobs/${option.id}`">
-                                        {{ getJobType(option.job_type) }}
+                                        {{ getIndustryName(option.industry_id) }}
                                     </router-link>
                                 </td>
                                 <td class="p-4 whitespace-nowrap">
@@ -66,8 +66,8 @@
 
 <script setup>
 import { computed } from 'vue'
-import { jobTypes } from '../../helpers/data'
 import { useCategoriesStore } from '../../stores/categories'
+import { useIndustriesStore } from '../../stores/industries'
 import EmptyState from '../EmptyState.vue'
 
 defineProps({
@@ -81,8 +81,11 @@ const getCategoryName = categoryId => {
     return categories.value.find(n => n.id === categoryId)?.name || 'N/A'
 } 
 
-const getJobType = type => {
-    return jobTypes.find(n => n.value === type)?.label || 'N/A'
+const industriesStore = useIndustriesStore()
+const industries = computed(() => industriesStore.getIndustries || [])
+
+const getIndustryName = industryId => {
+    return industries.value.find(n => n.id === industryId)?.name || 'N/A'
 } 
 
 </script>

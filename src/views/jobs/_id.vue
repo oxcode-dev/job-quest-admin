@@ -29,10 +29,10 @@
                                 <dt class="w-1/4 sm:w-40">Industry</dt>
                                 <dd class="text-gray-500 w-3/4 sm:w-auto">{{  industry?.name || 'N/A' }}</dd>
                             </div>
-                            <div class="flex space-x-4 py-2 border-b">
+                            <!-- <div class="flex space-x-4 py-2 border-b">
                                 <dt class="w-1/4 sm:w-40">Type</dt>
                                 <dd class="text-gray-500 w-3/4 sm:w-auto">{{ job?.job_type || 'N/A' }}</dd>
-                            </div>
+                            </div> -->
                             <div class="flex space-x-4 py-2 border-b">
                                 <dt class="w-1/4 sm:w-40">Location</dt>
                                 <dd class="text-gray-500 w-3/4 sm:w-auto">{{ job?.location || 'N/A' }}</dd>
@@ -57,11 +57,19 @@
                             </div>
                             <div class="flex space-x-4 py-2 border-b">
                                 <dt class="w-1/4 sm:w-40">Description</dt>
-                                <dd class="text-gray-500 w-3/4 sm:w-auto">{{ job.description }}</dd>
+                                <dd class="text-gray-500 w-3/4 sm:w-auto">{{ job?.description || 'N/A' }}</dd>
                             </div>
                             <div class="flex space-x-4 py-2 border-b">
                                 <dt class="w-1/4 sm:w-40">Qualification</dt>
-                                <dd class="text-gray-500 w-3/4 sm:w-auto">{{ job.qualification }}</dd>
+                                <dd class="text-gray-500 w-3/4 sm:w-auto">{{ job?.qualification || 'N/A' }}</dd>
+                            </div>
+                            <div class="flex space-x-4 py-2 border-b">
+                                <dt class="w-1/4 sm:w-40">Benefits</dt>
+                                <dd class="text-gray-500 w-3/4 sm:w-auto">{{ job?.benefits || 'N/A' }}</dd>
+                            </div>
+                            <div class="flex space-x-4 py-2 border-b">
+                                <dt class="w-1/4 sm:w-40">Responsibility</dt>
+                                <dd class="text-gray-500 w-3/4 sm:w-auto">{{ job?.responsibility || 'N/A' }}</dd>
                             </div>
                             <div class="flex space-x-4 py-2 border-b">
                                 <dt class="w-1/4 sm:w-40">Created Date</dt>

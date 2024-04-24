@@ -7,6 +7,7 @@
                 <div class="inline-flex space-x-2">
                     <button @click="() => showForm = true" class="px-4 bg-blue-700 text-white py-1.5 rounded">Edit</button>
                     <button @click="() => showDialog = true" class="px-4 bg-red-700 text-white py-1.5 rounded">Delete</button>
+                    <button @click="() => showJobForm = true" class="px-4 bg-white text-gray-500 border py-1.5 rounded">Add Job</button>
                 </div>
             </div>
 
@@ -80,6 +81,13 @@
                 @close="showForm = $event"
                 @alert="handleAlert($event)"
             />
+            <JobForm
+                :show="showJobForm"
+                :recruiter="recruiter"
+                v-if="showJobForm"
+                @close="showJobForm = $event"
+                @alert="handleAlert($event)"
+            />
         </div>
     </Layout>
 </template>
@@ -97,11 +105,13 @@ import { useFirebaseDB } from '../../composables/useFirebaseDB'
 import router from '../../router'
 import RecruiterForm from '../../forms/RecruiterForm.vue'
 import { useIndustriesStore } from '../../stores/industries'
+import JobForm from '../../forms/JobForm.vue';
 
 const showAlert = ref(false)
 const showDialog = ref(false)
 const isLoading = ref(true)
 const showForm = ref(false)
+const showJobForm = ref(false)
 const recruiter  = ref({})
 const jobs  = ref([])
 const industriesStore = useIndustriesStore()

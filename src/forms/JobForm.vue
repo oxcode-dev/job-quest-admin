@@ -16,6 +16,18 @@
                     </div>
 
                     <div>
+                        <label class="font-semibold text-sm text-gray-600 pb-1 block">Industry</label>
+                        <select required v-model="form.industry_id" class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full">
+                            <option 
+                                v-for="(industry, key) in industries" :key="key"
+                                :value="industry.id"
+                            >
+                                {{ industry.name }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div>
                         <label class="font-semibold text-sm text-gray-600 pb-1 block">Category</label>
                         <select required v-model="form.category_id" class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full">
                             <option 
@@ -23,18 +35,6 @@
                                 :value="category.id"
                             >
                                 {{ category.name }}
-                            </option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="font-semibold text-sm text-gray-600 pb-1 block">Job Type</label>
-                        <select required v-model="form.job_type" class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full">
-                            <option 
-                                v-for="(type, key) in jobTypes" :key="key"
-                                :value="type.value"
-                            >
-                                {{ type.label }}
                             </option>
                         </select>
                     </div>
@@ -109,14 +109,16 @@
 import Modal from '../components/Modal.vue';
 import { computed, ref } from 'vue';
 import { useCategoriesStore } from '../stores/categories';
+import { useIndustriesStore } from '../stores/industries';
 import { serverTimestamp } from 'firebase/firestore';
-import { jobTypes } from '../helpers/data'
 import { useFirebaseDB } from '../composables/useFirebaseDB';
 
 const categoriesStore = useCategoriesStore()
+const industriesStore = useIndustriesStore()
 const { updateData, addData} = useFirebaseDB()
 
 const categories = computed(() => categoriesStore.getCategories || [])
+const industries = computed(() => industriesStore.getIndustries || [])
 
 const closeIcon = ref(`<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>`)
 const props = defineProps({
@@ -129,18 +131,18 @@ const props = defineProps({
         default: () => {}
     }, 
     recruiter: {
-        type: String,
-        default: () => null
+        type: Object,
+        default: () => {}
     },
 })
 const emit = defineEmits(['close', 'alert'])
 
-const form = ref(props.job.id ? JSON.parse(JSON.stringify(props.job)) : {
+const form = ref(props.job && props.job.id ? JSON.parse(JSON.stringify(props.job)) : {
     title: '',
     category_id: '',
+    industry_id: '',
     isOpen: true,
     responsibility: null,
-    job_type: null,
     description: '',
     created_at: '',
     updated_at: '',
@@ -162,7 +164,7 @@ const close = () => {
 }
 
 const submit = async() => {
-    if(form.value.title && form.value.category_id && form.value.job_type && form.value.location) {
+    if(form.value.title && form.value.industry_id && form.value.category_id && form.value.location) {
         isLoading.value = true
         handleSubmit()
     }
